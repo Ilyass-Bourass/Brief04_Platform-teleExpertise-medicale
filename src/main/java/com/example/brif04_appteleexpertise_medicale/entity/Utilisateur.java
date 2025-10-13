@@ -17,19 +17,20 @@ public abstract class Utilisateur {
     private String email;
     private String motDePasse;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    public enum Role {
+        INFIRMIER, GENERALISTE, SPECIALISTE
+    }
+
     protected Utilisateur() {}
-    protected   Utilisateur(String nom , String prenom,String email,String motDePasse){
+    protected   Utilisateur(String nom , String prenom,String email,String motDePasse, Role role){
         this.nom=nom;
         this.prenom=prenom;
         this.email=email;
         this.motDePasse=motDePasse;
         this.role =role;
-    }
-    @Enumerated(EnumType.STRING)
-    private Role role;
-
-    public enum Role {
-        INFIRMIER, GENERALISTE, SPECIALISTE, ADMIN
     }
 
     public Long getId() {
@@ -80,5 +81,3 @@ public abstract class Utilisateur {
         this.role = role;
     }
 }
-
-

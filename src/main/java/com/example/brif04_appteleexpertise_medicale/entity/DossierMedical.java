@@ -14,8 +14,7 @@ public class DossierMedical {
     private String allergies;
     private String traitementEnCours;
 
-    @OneToOne
-    @JoinColumn(name = "patient_id")
+    @OneToOne(mappedBy = "dossierMedical")
     private Patient patient;
 
     // Constructors

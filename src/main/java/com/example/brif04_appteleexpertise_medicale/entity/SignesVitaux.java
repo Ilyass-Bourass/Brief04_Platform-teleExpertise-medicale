@@ -9,8 +9,7 @@ public class SignesVitaux {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "patient_id")
+    @OneToOne(mappedBy = "signesVitaux")
     private Patient patient;
 
     private LocalDateTime dateSaisie;
@@ -21,20 +20,23 @@ public class SignesVitaux {
     private Double poids;
     private Double taille;
 
-    protected   SignesVitaux(){}
-    public SignesVitaux(Patient patient,String tension,Integer frequenceCardiaque,Double temperature,Integer frequenceRespiratoire,Double poids,Double taille){
+    protected SignesVitaux(){}
+
+    public SignesVitaux(Patient patient, String tension, Integer frequenceCardiaque, Double temperature, Integer frequenceRespiratoire, Double poids, Double taille){
         this.patient = patient;
-        this.dateSaisie=LocalDateTime.now();
-        this.tension=tension;
-        this.frequenceCardiaque=frequenceCardiaque;
-        this.temperature=temperature;
-        this.poids=poids;
-        this.taille=taille;
+        this.dateSaisie = LocalDateTime.now();
+        this.tension = tension;
+        this.frequenceCardiaque = frequenceCardiaque;
+        this.temperature = temperature;
+        this.frequenceRespiratoire = frequenceRespiratoire;
+        this.poids = poids;
+        this.taille = taille;
     }
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
-    public Patient getpatient() { return patient; }
-    public void setDossierMedical(Patient patient) { this.patient = patient; }
+    public Patient getPatient() { return patient; }
+    public void setPatient(Patient patient) { this.patient = patient; }
     public LocalDateTime getDateSaisie() { return dateSaisie; }
     public void setDateSaisie(LocalDateTime dateSaisie) { this.dateSaisie = dateSaisie; }
     public String getTension() { return tension; }

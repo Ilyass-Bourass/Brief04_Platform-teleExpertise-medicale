@@ -5,7 +5,6 @@ import java.util.List;
 
 @Entity
 @DiscriminatorValue("SPECIALISTE")
-
 public class MedecinSpecialiste extends Utilisateur {
 
     @Enumerated(EnumType.STRING)
@@ -13,19 +12,20 @@ public class MedecinSpecialiste extends Utilisateur {
     private Double tarif;
     private Integer dureeConsultation;
 
-    protected  MedecinSpecialiste(){}
-    public MedecinSpecialiste(String nom, String prenom, String email, String motDePasse,Specialite specialite,Double tarif,Integer dureeConsultation) {
-        super(nom,prenom,email,motDePasse);
-        this.specialite=specialite;
-        this.tarif=tarif;
-        this.dureeConsultation=dureeConsultation;
-    }
-
     @OneToMany(mappedBy = "medecinSpecialiste")
     private List<Creneau> creneauxDisponibles;
 
     public enum Specialite {
         CARDIOLOGIE, PNEUMOLOGIE
+    }
+
+    protected MedecinSpecialiste(){}
+
+    public MedecinSpecialiste(String nom, String prenom, String email, String motDePasse, Specialite specialite, Double tarif, Integer dureeConsultation) {
+        super(nom, prenom, email, motDePasse, Role.SPECIALISTE);
+        this.specialite = specialite;
+        this.tarif = tarif;
+        this.dureeConsultation = dureeConsultation;
     }
 
     public Specialite getSpecialite() { return specialite; }

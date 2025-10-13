@@ -9,7 +9,8 @@ public class Infirmier extends Utilisateur {
 
 
     protected Infirmier() {}
+
     public Infirmier(String nom, String prenom, String email, String motDePasse) {
-        super(nom,prenom,email,motDePasse);
+        super(nom, prenom, email, motDePasse, Role.INFIRMIER);
     }
 }
