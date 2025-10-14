@@ -5,14 +5,31 @@
              version="3.2">
     <persistence-unit name="default">
 
+
+        <class>com.example.brif04_appteleexpertise_medicale.entity.Utilisateur</class>
+        <class>com.example.brif04_appteleexpertise_medicale.entity.Infirmier</class>
+        <class>com.example.brif04_appteleexpertise_medicale.entity.MedecinGeneraliste</class>
+        <class>com.example.brif04_appteleexpertise_medicale.entity.MedecinSpecialiste</class>
+        <class>com.example.brif04_appteleexpertise_medicale.entity.Patient</class>
+        <class>com.example.brif04_appteleexpertise_medicale.entity.SignesVitaux</class>
+        <class>com.example.brif04_appteleexpertise_medicale.entity.DossierMedical</class>
+        <class>com.example.brif04_appteleexpertise_medicale.entity.Consultation</class>
+        <class>com.example.brif04_appteleexpertise_medicale.entity.DemandeExpertise</class>
+        <class>com.example.brif04_appteleexpertise_medicale.entity.Creneau</class>
+        <class>com.example.brif04_appteleexpertise_medicale.entity.ActeTechnique</class>
+
         <properties>
+
             <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/tele_expert"/>
             <property name="jakarta.persistence.jdbc.user" value="root"/>
             <property name="jakarta.persistence.jdbc.password" value="12345"/>
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
+
+
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
 
             <property name="hibernate.hbm2ddl.auto" value="update"/>
+
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
         </properties>

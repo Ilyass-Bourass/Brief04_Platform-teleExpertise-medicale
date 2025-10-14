@@ -21,7 +21,7 @@ public class SignesVitaux {
     private Double taille;
 
     protected SignesVitaux(){}
-
+    
     public SignesVitaux(Patient patient, String tension, Integer frequenceCardiaque, Double temperature, Integer frequenceRespiratoire, Double poids, Double taille){
         this.patient = patient;
         this.dateSaisie = LocalDateTime.now();
@@ -32,7 +32,7 @@ public class SignesVitaux {
         this.poids = poids;
         this.taille = taille;
     }
-
+    
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public Patient getPatient() { return patient; }
