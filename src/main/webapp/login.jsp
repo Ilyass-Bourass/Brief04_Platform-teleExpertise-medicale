@@ -229,9 +229,9 @@
             <p>Accédez à votre espace professionnel</p>
         </div>
 
-        <% if (request.getAttribute("error") != null) { %>
+        <% if (request.getAttribute("errorMessage") != null) { %>
             <div class="error-message">
-                ❌ <%= request.getAttribute("error") %>
+                ❌ <%= request.getAttribute("errorMessage") %>
             </div>
         <% } %>
 

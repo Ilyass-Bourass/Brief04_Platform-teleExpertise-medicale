@@ -27,6 +27,11 @@ public class Patient {
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Consultation> consultations = new ArrayList<>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "infirmier_id")
+    private Infirmier infirmier;
+
+
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "dossier_medical_id")
@@ -75,5 +80,13 @@ public class Patient {
 
     public void setConsultations(List<Consultation> consultations) {
         this.consultations = consultations;
+    }
+
+    public Infirmier getInfirmier() {
+        return infirmier;
+    }
+
+    public void setInfirmier(Infirmier infirmier) {
+        this.infirmier = infirmier;
     }
 }
