@@ -229,7 +229,6 @@
             <p>Accédez à votre espace professionnel</p>
         </div>
 
-        <!-- Messages d'erreur ou de succès -->
         <% if (request.getAttribute("error") != null) { %>
             <div class="error-message">
                 ❌ <%= request.getAttribute("error") %>
