@@ -28,7 +28,7 @@ public class LoginServlet extends HttpServlet {
 
         try {
             if (email == null || email.trim().isEmpty() ||
-                password == null || password.trim().isEmpty()) {
+                    password == null || password.trim().isEmpty()) {
 
                 request.setAttribute("errorMessage", "Veuillez remplir tous les champs");
                 request.getRequestDispatcher("/login.jsp").forward(request, response);
@@ -49,7 +49,6 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("userId", utilisateur.getId());
             session.setAttribute("userName", utilisateur.getNom() + " " + utilisateur.getPrenom());
 
-            // Rediriger vers le servlet dashboard correspondant (sendRedirect pour exécuter la servlet)
             String redirectUrl = getRedirectUrlByRole(utilisateur);
             response.sendRedirect(request.getContextPath() + redirectUrl);
 
