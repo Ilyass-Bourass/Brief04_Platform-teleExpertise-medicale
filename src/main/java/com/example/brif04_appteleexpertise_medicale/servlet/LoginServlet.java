@@ -49,8 +49,9 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("userId", utilisateur.getId());
             session.setAttribute("userName", utilisateur.getNom() + " " + utilisateur.getPrenom());
 
+            // Rediriger vers le servlet dashboard correspondant (sendRedirect pour exécuter la servlet)
             String redirectUrl = getRedirectUrlByRole(utilisateur);
-            request.getRequestDispatcher(redirectUrl).forward(request, response);
+            response.sendRedirect(request.getContextPath() + redirectUrl);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,13 +63,13 @@ public class LoginServlet extends HttpServlet {
     private String getRedirectUrlByRole(Utilisateur utilisateur) {
 
         if (utilisateur instanceof Infirmier) {
-            return "/WEB-INF/views/infirmier/infirmier.jsp";
+            return "/infirmier/dashboard";
         }
         else if (utilisateur instanceof MedecinGeneraliste) {
-            return "/WEB-INF/views/generaliste/generaliste.jsp";
+            return "/generaliste/dashboard";
         }
         else if (utilisateur instanceof MedecinSpecialiste) {
-            return "/WEB-INF/views/specialiste/specialiste.jsp";
+            return "/specialiste/dashboard";
         }
 
         return "/login.jsp";
