@@ -342,6 +342,16 @@
             font-size: 4rem;
             margin-bottom: 15px;
         }
+
+        /* Alert messages */
+        .alert {
+            padding: 12px 18px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .alert-success { background: #d4edda; color: #155724; }
+        .alert-error { background: #f8d7da; color: #721c24; }
     </style>
 </head>
 <body>
@@ -362,6 +372,17 @@
         <button type="submit" class="btn-deconnexion">🚪 Déconnexion</button>
     </form>
 </div>
+
+<!-- Messages de session (succès / erreur) -->
+<c:if test="${not empty sessionScope.successMessage}">
+    <div class="alert alert-success">${sessionScope.successMessage}</div>
+    <c:remove var="successMessage" scope="session" />
+</c:if>
+
+<c:if test="${not empty sessionScope.errorMessage}">
+    <div class="alert alert-error">${sessionScope.errorMessage}</div>
+    <c:remove var="errorMessage" scope="session" />
+</c:if>
 
 <!-- Statistiques -->
 <div class="stats-container">
@@ -547,9 +568,21 @@
                                 </c:choose>
                             </td>
                             <td>
-                                <button class="btn-primary" style="padding: 8px 15px; font-size: 0.9rem;">
-                                    👁️ Détails
-                                </button>
+                                <a class="btn-primary"
+                                   href="${pageContext.request.contextPath}/infirmier/modifierPatient?id=${patient.id}"
+                                   style="padding:8px 12px; font-size:0.9rem; text-decoration:none; display:inline-block;">
+                                    ✏️ Modifier
+                                </a>
+
+                                <form action="${pageContext.request.contextPath}/infirmier/supprimerPatient" method="post"
+                                      style="display:inline-block; margin-left:8px;"
+                                      onsubmit="return confirm('Confirmer la suppression du patient ?');">
+                                    <input type="hidden" name="id" value="${patient.id}" />
+                                    <button type="submit" class="btn-secondary"
+                                            style="padding:8px 12px; font-size:0.9rem; background:#e74c3c; border:none; color:white; border-radius:8px;">
+                                        🗑️ Supprimer
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     </c:forEach>
@@ -560,12 +593,10 @@
 </div>
 
 <script>
-    // Fonction pour afficher/masquer le formulaire
     function toggleForm() {
         const form = document.getElementById('patientForm');
         form.classList.toggle('active');
 
-        // Scroll vers le formulaire si ouvert
         if (form.classList.contains('active')) {
             form.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }

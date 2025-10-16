@@ -14,7 +14,8 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDate;
 
-@WebServlet("/infirmier/ajouterPatient")
+// La servlet gère à la fois l'ajout et la suppression de patients
+@WebServlet({"/infirmier/ajouterPatient", "/infirmier/supprimerPatient"})
 public class PatientServlet extends HttpServlet {
 
     private final PatientService patientService = new PatientService();
@@ -32,6 +33,31 @@ public class PatientServlet extends HttpServlet {
         Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur");
         if (!(utilisateur instanceof Infirmier)) {
             response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+
+        String path = request.getServletPath();
+
+        if ("/infirmier/supprimerPatient".equals(path)) {
+            String idStr = request.getParameter("id");
+            if (idStr == null || idStr.isEmpty()) {
+                session.setAttribute("errorMessage", "ID patient manquant pour la suppression.");
+                response.sendRedirect(request.getContextPath() + "/infirmier/dashboard");
+                return;
+            }
+
+            try {
+                Long id = Long.parseLong(idStr);
+                patientService.deletePatient(id);
+                session.setAttribute("successMessage", "Patient supprimé avec succès.");
+            } catch (NumberFormatException e) {
+                session.setAttribute("errorMessage", "ID patient invalide.");
+            } catch (Exception e) {
+                session.setAttribute("errorMessage", "Erreur lors de la suppression : " + e.getMessage());
+                e.printStackTrace();
+            }
+
+            response.sendRedirect(request.getContextPath() + "/infirmier/dashboard");
             return;
         }
 

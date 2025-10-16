@@ -110,4 +110,9 @@ public class PatientService {
         }
         throw new RuntimeException("Patient introuvable");
     }
+
+    // Ajout: suppression d'un patient via le service
+    public void deletePatient(Long patientId) {
+        patientDao.delete(patientId);
+    }
 }
