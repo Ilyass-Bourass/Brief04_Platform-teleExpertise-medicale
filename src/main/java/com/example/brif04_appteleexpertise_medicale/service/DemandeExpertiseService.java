@@ -18,7 +18,6 @@ public class DemandeExpertiseService {
     private final SpecialisteDao specialisteDao = new SpecialisteDao();
     private final ConsultationDao consultationDao = new ConsultationDao();
 
-    // Liste des créneaux statiques disponibles (2 matin + 2 après-midi)
     private static final List<String> TOUS_LES_CRENEAUX = Arrays.asList(
         "09h00-10h00",
         "10h00-11h00",
@@ -99,8 +98,13 @@ public class DemandeExpertiseService {
     }
 
 
+
     public List<DemandeExpertise> getAllDemandes() {
         return demandeDao.findAll();
     }
-}
 
+
+    public DemandeExpertise updateDemande(DemandeExpertise demande) {
+        return demandeDao.save(demande);
+    }
+}
