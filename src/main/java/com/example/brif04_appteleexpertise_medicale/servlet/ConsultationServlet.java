@@ -54,7 +54,6 @@ public class ConsultationServlet extends HttpServlet {
                 return;
             }
 
-            // Créer la consultation
             Consultation consultation = consultationService.creerConsultation(
                     patientId,
                     medecin,
@@ -77,7 +76,6 @@ public class ConsultationServlet extends HttpServlet {
             session.setAttribute("errorMessage", "Erreur lors de l'ajout de la consultation: " + e.getMessage());
         }
 
-        // Rediriger vers le dashboard
         response.sendRedirect(request.getContextPath() + "/generaliste/dashboard");
     }
 }

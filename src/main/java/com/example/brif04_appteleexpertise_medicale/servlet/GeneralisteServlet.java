@@ -1,11 +1,13 @@
 package com.example.brif04_appteleexpertise_medicale.servlet;
 
 import com.example.brif04_appteleexpertise_medicale.entity.MedecinGeneraliste;
+import com.example.brif04_appteleexpertise_medicale.entity.MedecinSpecialiste;
 import com.example.brif04_appteleexpertise_medicale.entity.Utilisateur;
 import com.example.brif04_appteleexpertise_medicale.entity.Patient;
 import com.example.brif04_appteleexpertise_medicale.entity.Consultation;
 import com.example.brif04_appteleexpertise_medicale.service.PatientService;
 import com.example.brif04_appteleexpertise_medicale.service.ConsultationService;
+import com.example.brif04_appteleexpertise_medicale.service.SpecialisteService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -21,6 +23,7 @@ public class GeneralisteServlet extends HttpServlet {
 
     private final PatientService patientService = new PatientService();
     private final ConsultationService consultationService = new ConsultationService();
+    private final SpecialisteService specialisteService = new SpecialisteService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -39,18 +42,19 @@ public class GeneralisteServlet extends HttpServlet {
         MedecinGeneraliste medecin = (MedecinGeneraliste) utilisateur;
 
         try {
-            // Récupérer les patients en attente
             List<Patient> patientsEnAttente = patientService.getPatientsEnAttente();
-
-            // Récupérer les consultations du médecin
             List<Consultation> consultations = consultationService.getConsultationsByMedecin(medecin.getId());
 
-            // Récupérer tous les patients
+            List<Consultation> consultationsSansExpertise = consultationService.getConsultationsSansDemandeExpertise(medecin.getId());
+
             List<Patient> patients = patientService.getAllPatients();
+            List<MedecinSpecialiste> specialistes = specialisteService.getAllSpecialistes();
 
             request.setAttribute("patients", patients);
             request.setAttribute("patientsEnAttente", patientsEnAttente);
             request.setAttribute("consultations", consultations);
+            request.setAttribute("consultationsSansExpertise", consultationsSansExpertise);
+            request.setAttribute("specialistes", specialistes);
             request.setAttribute("totalPatients", patientService.countTotalPatients());
 
             request.getRequestDispatcher("/WEB-INF/views/generaliste/generaliste.jsp").forward(request, response);

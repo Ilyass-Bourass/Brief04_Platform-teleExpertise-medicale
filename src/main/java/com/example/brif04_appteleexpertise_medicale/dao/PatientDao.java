@@ -16,8 +16,6 @@ public class PatientDao {
         try {
             em.getTransaction().begin();
 
-            // Si l'ID est null, c'est une création (persist)
-            // Sinon c'est une modification (merge)
             if (patient.getId() == null) {
                 em.persist(patient);
             } else {
@@ -37,7 +35,6 @@ public class PatientDao {
         }
     }
 
-    // Méthode pour récupérer un patient par ID
     public Patient findById(Long id) {
         EntityManager em = JpaUtil.getEntityManager();
 
@@ -48,7 +45,6 @@ public class PatientDao {
         }
     }
 
-    // Méthode pour récupérer tous les patients
     public List<Patient> findAll() {
         EntityManager em = JpaUtil.getEntityManager();
 
@@ -63,7 +59,6 @@ public class PatientDao {
         }
     }
 
-    // Méthode pour récupérer les patients en attente (file d'attente)
     public List<Patient> findPatientsEnAttente() {
         EntityManager em = JpaUtil.getEntityManager();
 
@@ -78,7 +73,6 @@ public class PatientDao {
         }
     }
 
-    // Méthode pour compter le nombre total de patients
     public Long countAll() {
         EntityManager em = JpaUtil.getEntityManager();
 
@@ -93,7 +87,6 @@ public class PatientDao {
         }
     }
 
-    // Méthode pour compter les patients en attente
     public Long countPatientsEnAttente() {
         EntityManager em = JpaUtil.getEntityManager();
 
@@ -108,7 +101,6 @@ public class PatientDao {
         }
     }
 
-    // Méthode pour compter les patients traités
     public Long countPatientsTraites() {
         EntityManager em = JpaUtil.getEntityManager();
 
@@ -123,7 +115,6 @@ public class PatientDao {
         }
     }
 
-    // Méthode pour rechercher un patient par numéro de sécurité sociale
     public Patient findByNumSecu(String numSecu) {
         EntityManager em = JpaUtil.getEntityManager();
 
@@ -142,7 +133,6 @@ public class PatientDao {
         }
     }
 
-    // Méthode pour supprimer un patient
     public void delete(Long id) {
         EntityManager em = JpaUtil.getEntityManager();
 

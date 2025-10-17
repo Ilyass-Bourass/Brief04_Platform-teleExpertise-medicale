@@ -102,4 +102,21 @@ public class ConsultationDao {
             em.close();
         }
     }
+
+    public List<Consultation> findByMedecinSansDemandeExpertise(Long medecinId) {
+        EntityManager em = JpaUtil.getEntityManager();
+
+        try {
+            TypedQuery<Consultation> query = em.createQuery(
+                "SELECT c FROM Consultation c WHERE c.medecinGeneraliste.id = :medecinId " +
+                "AND c.id NOT IN (SELECT d.consultation.id FROM DemandeExpertise d) " +
+                "ORDER BY c.dateConsultation DESC",
+                Consultation.class
+            );
+            query.setParameter("medecinId", medecinId);
+            return query.getResultList();
+        } finally {
+            em.close();
+        }
+    }
 }

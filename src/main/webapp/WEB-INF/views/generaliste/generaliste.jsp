@@ -498,7 +498,10 @@
 <div class="main-section">
     <div class="section-header">
         <h2>📋 Gestion des Consultations</h2>
-        <button class="btn-primary" onclick="toggleForm()">➕ Nouvelle Consultation</button>
+        <div style="display: flex; gap: 15px;">
+            <button class="btn-primary" onclick="toggleForm()">➕ Nouvelle Consultation</button>
+            <button class="btn-primary" style="background: linear-gradient(135deg, #f093fb, #f5576c);" onclick="toggleExpertiseForm()">🩺 Demande Expertise</button>
+        </div>
     </div>
 
     <!-- Formulaire d'ajout consultation (caché par défaut) -->
@@ -555,6 +558,54 @@
             <div class="form-actions">
                 <button type="button" class="btn-secondary" onclick="toggleForm()">Annuler</button>
                 <button type="submit" class="btn-primary">💾 Enregistrer la Consultation</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Formulaire de demande d'expertise (caché par défaut) -->
+    <div class="form-container" id="expertiseForm">
+        <h3 style="color: #333; margin-bottom: 20px;">🩺 Demander l'avis d'un Spécialiste</h3>
+        <form action="${pageContext.request.contextPath}/generaliste/formulaireDemandeCrenaux" method="post">
+
+            <!-- Sélection de la consultation -->
+            <div class="form-section-title">📋 Sélection de la Consultation</div>
+            <div class="form-group">
+                <label for="consultationId">Consultation concernée *</label>
+                <select id="consultationId" name="consultationId" required>
+                    <option value="">-- Choisir une consultation --</option>
+                    <c:choose>
+                        <c:when test="${empty consultationsSansExpertise}">
+                            <option value="" disabled>⚠️ Aucune consultation disponible (toutes ont déjà une demande d'expertise)</option>
+                        </c:when>
+                        <c:otherwise>
+                            <c:forEach items="${consultationsSansExpertise}" var="c">
+                                <option value="${c.id}">
+                                    ${c.patient.nom} ${c.patient.prenom} - ${c.motif} (${c.dateConsultation})
+                                </option>
+                            </c:forEach>
+                        </c:otherwise>
+                    </c:choose>
+                </select>
+            </div>
+
+            <!-- Sélection du spécialiste -->
+            <div class="form-section-title">👨‍⚕️ Sélection du Spécialiste</div>
+            <div class="form-group">
+                <label for="specialisteId">Médecin Spécialiste *</label>
+                <select id="specialisteId" name="specialisteId" required>
+                    <option value="">-- Choisir un spécialiste --</option>
+                    <c:forEach items="${specialistes}" var="sp">
+                        <option value="${sp.id}">
+                            Dr. ${sp.nom} ${sp.prenom} - ${sp.specialite} (Tarif: ${sp.tarif} DH)
+                        </option>
+                    </c:forEach>
+                </select>
+            </div>
+
+            <!-- Actions -->
+            <div class="form-actions">
+                <button type="button" class="btn-secondary" onclick="toggleExpertiseForm()">Annuler</button>
+                <button type="submit" class="btn-primary" style="background: linear-gradient(135deg, #f093fb, #f5576c);">📅 Choisir un Créneau</button>
             </div>
         </form>
     </div>
@@ -656,10 +707,29 @@
 <script>
     function toggleForm() {
         const form = document.getElementById('consultationForm');
+        const expertiseForm = document.getElementById('expertiseForm');
+
+        // Fermer le formulaire d'expertise si ouvert
+        expertiseForm.classList.remove('active');
+
         form.classList.toggle('active');
 
         if (form.classList.contains('active')) {
             form.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    }
+
+    function toggleExpertiseForm() {
+        const form = document.getElementById('consultationForm');
+        const expertiseForm = document.getElementById('expertiseForm');
+
+        // Fermer le formulaire de consultation si ouvert
+        form.classList.remove('active');
+
+        expertiseForm.classList.toggle('active');
+
+        if (expertiseForm.classList.contains('active')) {
+            expertiseForm.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
     }
 </script>

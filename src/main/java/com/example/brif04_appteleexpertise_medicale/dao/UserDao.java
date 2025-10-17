@@ -1,10 +1,14 @@
 package com.example.brif04_appteleexpertise_medicale.dao;
 
+import com.example.brif04_appteleexpertise_medicale.entity.MedecinSpecialiste;
 import com.example.brif04_appteleexpertise_medicale.entity.Utilisateur;
 import com.example.brif04_appteleexpertise_medicale.util.JpaUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
+import jdk.jshell.execution.Util;
+
+import java.util.List;
 
 
 public class UserDao {
@@ -53,5 +57,26 @@ public class UserDao {
         }
 
         return utilisateur;
+    }
+
+    public List<Utilisateur> getAllSpecialistes() {
+        EntityManager em = null;
+        List<Utilisateur> specialistes = null;
+
+        try {
+            em = JpaUtil.getEntityManager();
+            TypedQuery<Utilisateur> query = em.createQuery("SELECT u FROM Utilisateur u WHERE TYPE(u) = MedecinSpecialiste", Utilisateur.class);
+            specialistes = query.getResultList();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        } finally {
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
+        }
+
+        return specialistes;
     }
 }

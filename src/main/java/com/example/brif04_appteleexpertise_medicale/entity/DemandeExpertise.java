@@ -25,6 +25,8 @@ public class DemandeExpertise {
     private Status status;
 
     private LocalDateTime dateDemande;
+    private String dateRendezVous;
+    private String creneauHoraire;
     private String avisMedecin;
     private String recommandations;
 
@@ -33,7 +35,7 @@ public class DemandeExpertise {
     }
 
     public enum Status {
-        EN_ATTENTE, TERMINEE
+        EN_ATTENTE, TERMINEE, ANNULEE
     }
 
     public Long getId() { return id; }
@@ -50,6 +52,10 @@ public class DemandeExpertise {
     public void setStatus(Status status) { this.status = status; }
     public LocalDateTime getDateDemande() { return dateDemande; }
     public void setDateDemande(LocalDateTime dateDemande) { this.dateDemande = dateDemande; }
+    public String getDateRendezVous() { return dateRendezVous; }
+    public void setDateRendezVous(String dateRendezVous) { this.dateRendezVous = dateRendezVous; }
+    public String getCreneauHoraire() { return creneauHoraire; }
+    public void setCreneauHoraire(String creneauHoraire) { this.creneauHoraire = creneauHoraire; }
     public String getAvisMedecin() { return avisMedecin; }
     public void setAvisMedecin(String avisMedecin) { this.avisMedecin = avisMedecin; }
     public String getRecommandations() { return recommandations; }
