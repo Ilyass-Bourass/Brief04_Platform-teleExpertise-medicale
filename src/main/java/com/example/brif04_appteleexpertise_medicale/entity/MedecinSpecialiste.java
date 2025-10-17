@@ -16,7 +16,21 @@ public class MedecinSpecialiste extends Utilisateur {
     private List<Creneau> creneauxDisponibles;
 
     public enum Specialite {
-        CARDIOLOGIE, PNEUMOLOGIE
+        CARDIOLOGIE,
+        PNEUMOLOGIE,
+        DERMATOLOGIE,
+        PEDIATRIE,
+        NEUROLOGIE,
+        OPHTALMOLOGIE,
+        PSYCHIATRIE,
+        RADIOLOGIE,
+        GYNECOLOGIE,
+        ORTHOPEDIE,
+        ORL,
+        UROLOGIE,
+        GASTRO_ENTEROLOGIE,
+        ENDOCRINOLOGIE,
+        RHUMATOLOGIE
     }
 
     protected MedecinSpecialiste(){}

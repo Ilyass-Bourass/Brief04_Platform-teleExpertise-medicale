@@ -63,6 +63,26 @@
             transform: translateY(-2px);
         }
 
+        .btn-profil {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-profil:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+        }
+
         .alert {
             padding: 12px 18px;
             border-radius: 10px;
@@ -230,9 +250,14 @@
             <p>Médecin Spécialiste - ${specialiste.specialite}</p>
         </div>
     </div>
-    <form action="${pageContext.request.contextPath}/logout" method="post" style="margin: 0;">
-        <button type="submit" class="btn-deconnexion">🚪 Déconnexion</button>
-    </form>
+    <div style="display: flex; gap: 10px; align-items: center;">
+        <a href="${pageContext.request.contextPath}/specialiste/modifierProfil" class="btn-profil" title="Modifier mon profil">
+            ⚙️ Modifier Profil
+        </a>
+        <form action="${pageContext.request.contextPath}/logout" method="post" style="margin: 0;">
+            <button type="submit" class="btn-deconnexion">🚪 Déconnexion</button>
+        </form>
+    </div>
 </div>
 
 <!-- Messages -->

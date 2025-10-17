@@ -51,4 +51,39 @@ public class SpecialisteDao {
             em.close();
         }
     }
+
+    public void update(MedecinSpecialiste specialiste) {
+        EntityManager em = JpaUtil.getEntityManager();
+
+        try {
+            em.getTransaction().begin();
+
+            em.createQuery("UPDATE MedecinSpecialiste s SET " +
+                    "s.nom = :nom, " +
+                    "s.prenom = :prenom, " +
+                    "s.email = :email, " +
+                    "s.specialite = :specialite, " +
+                    "s.tarif = :tarif, " +
+                    "s.dureeConsultation = :duree " +
+                    "WHERE s.id = :id")
+                .setParameter("nom", specialiste.getNom())
+                .setParameter("prenom", specialiste.getPrenom())
+                .setParameter("email", specialiste.getEmail())
+                .setParameter("specialite", specialiste.getSpecialite())
+                .setParameter("tarif", specialiste.getTarif())
+                .setParameter("duree", specialiste.getDureeConsultation())
+                .setParameter("id", specialiste.getId())
+                .executeUpdate();
+
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            e.printStackTrace();
+            throw new RuntimeException("Erreur lors de la mise à jour du spécialiste", e);
+        } finally {
+            em.close();
+        }
+    }
 }

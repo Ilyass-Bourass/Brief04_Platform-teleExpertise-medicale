@@ -15,4 +15,8 @@ public class SpecialisteService {
     public MedecinSpecialiste getSpecialisteById(Long id) {
         return specialisteDao.findById(id);
     }
+
+    public void updateSpecialiste(MedecinSpecialiste specialiste) {
+        specialisteDao.update(specialiste);
+    }
 }
